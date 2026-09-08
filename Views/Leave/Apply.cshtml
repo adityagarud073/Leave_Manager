@@ -5,100 +5,251 @@
     var userName = Context.Session.GetString("UserName");
 }
 
-<div class="container-fluid py-3">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark rounded px-3 mb-4">
-        <a class="navbar-brand"
-           asp-controller="Leave"
-           asp-action="Apply">
-            LeaveManagementSystem
-        </a>
+<div class="container py-4">
 
-        <div class="navbar-nav mx-auto">
-            <a class="nav-link text-white mx-2"
-               asp-controller="Leave"
-               asp-action="MyLeaves">
-                My Leaves
-            </a>
-
-            <a class="nav-link text-white mx-2 active"
-               asp-controller="Leave"
-               asp-action="Apply">
-                Apply Leave
-            </a>
+    @* @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["Error"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
+    } *@
 
-        <form asp-controller="Account"
-              asp-action="Logout"
-              method="post"
-              class="d-inline">
-            <button type="submit" class="btn btn-danger btn-sm">
-                Logout
-            </button>
-        </form>
-    </nav>
+    @if (TempData["Error"] != null)
+{
+    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
 
-    <div class="row align-items-center">
-        <div class="col-md-4 mb-4">
-            <div class="text-center">
-                <h1 class="display-4 fw-light">Welcome</h1>
-                <h2 class="fw-bold text-primary">@userName</h2>
-            </div>
-        </div>
-
-        <div class="col-md-8">
-            <div class="card shadow border-0">
-                <div class="card-header bg-primary text-white">
-                    <h3 class="mb-0">Apply Leave</h3>
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="errorModalLabel">
+                        Error
+                    </h5>
+                    <button type="button"
+                            class="btn-close btn-close-white"
+                            data-bs-dismiss="modal">
+                    </button>
                 </div>
 
-                <div class="card-body p-4">
-                    <form method="post">
-                        <div class="mb-3">
-                            <label asp-for="FromDate" class="form-label fw-bold">
-                                From Date
-                            </label>
-                            <input asp-for="FromDate"
-                                   type="date"
-                                   class="form-control"
-                                   required />
-                        </div>
-
-                        <div class="mb-3">
-                            <label asp-for="ToDate" class="form-label fw-bold">
-                                To Date
-                            </label>
-                            <input asp-for="ToDate"
-                                   type="date"
-                                   class="form-control"
-                                   required />
-                        </div>
-
-                        <div class="mb-3">
-                            <label asp-for="Reason" class="form-label fw-bold">
-                                Reason
-                            </label>
-                            <textarea asp-for="Reason"
-                                      class="form-control"
-                                      rows="4"
-                                      required></textarea>
-                        </div>
-
-                        @if (TempData["Error"] != null)
-                        {
-                            <div class="alert alert-danger">
-                                @TempData["Error"]
-                            </div>
-                        }
-
-                        <div class="text-center mt-4">
-                            <button type="submit"
-                                    class="btn btn-success px-5">
-                                Submit Leave
-                            </button>
-                        </div>
-                    </form>
+                <div class="modal-body text-center">
+                    @TempData["Error"]
                 </div>
+
+                <div class="modal-footer">
+                    <button type="button"
+                            class="btn btn-primary"
+                            data-bs-dismiss="modal">
+                        OK
+                    </button>
+                </div>
+
             </div>
         </div>
     </div>
+}
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary rounded shadow mb-4">
+        <div class="container-fluid">
+
+            <a class="navbar-brand fw-bold"
+               asp-controller="Leave"
+               asp-action="Apply">
+                Leave Management System
+            </a>
+
+            <button class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           asp-controller="Leave"
+                           asp-action="MyLeaves">
+                            My Leaves
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link active"
+                           asp-controller="Leave"
+                           asp-action="Apply">
+                            Apply Leave
+                        </a>
+                    </li>
+                </ul>
+
+                <form asp-controller="Account"
+                      asp-action="Logout"
+                      method="post">
+                    <button type="submit" class="btn btn-danger">
+                        Logout
+                    </button>
+                </form>
+
+            </div>
+
+        </div>
+    </nav>
+
+    <!-- Welcome -->
+    <div class="text-center mb-4">
+        <h2 class="fw-light">Welcome</h2>
+        <h1 class="fw-bold text-primary">@userName</h1>
+        <p class="text-muted">
+            Apply and manage your leave requests
+        </p>
+    </div>
+
+    <div class="row g-4">
+
+        <!-- Leave Summary -->
+        <div class="col-lg-4">
+
+            <div class="card border-0 shadow h-100">
+
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">Leave Summary</h5>
+                </div>
+
+                <div class="card-body">
+
+                    <div class="mb-3">
+                        <h6 class="text-muted">Total Leaves</h6>
+                        <h2 class="text-primary fw-bold">
+                            @ViewBag.TotalLeaves
+                        </h2>
+                    </div>
+
+                    <hr />
+
+                    <div class="mb-3">
+                        <h6 class="text-muted">Used Leaves</h6>
+                        <h2 class="text-danger fw-bold">
+                            @ViewBag.UsedLeaves
+                        </h2>
+                    </div>
+
+                    <hr />
+
+                    <div>
+                        <h6 class="text-muted">Remaining Leaves</h6>
+                        <h2 class="text-success fw-bold">
+                            @ViewBag.RemainingLeaves
+                        </h2>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Apply Form -->
+        <div class="col-lg-8">
+
+            <div class="card border-0 shadow">
+
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Apply Leave</h4>
+                </div>
+
+                <div class="card-body p-4">
+
+                    <form method="post">
+
+                        <div class="row">
+
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="FromDate"
+                                       class="form-label fw-semibold">
+                                    From Date
+                                </label>
+
+                                <input asp-for="FromDate"
+                                       type="date"
+                                       class="form-control"
+                                       required />
+
+                                <span asp-validation-for="FromDate"
+                                      class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="ToDate"
+                                       class="form-label fw-semibold">
+                                    To Date
+                                </label>
+
+                                <input asp-for="ToDate"
+                                       type="date"
+                                       class="form-control"
+                                       required />
+
+                                <span asp-validation-for="ToDate"
+                                      class="text-danger"></span>
+                            </div>
+
+                        </div>
+
+                        <div class="mb-4">
+
+                            <label asp-for="Reason"
+                                   class="form-label fw-semibold">
+                                Reason
+                            </label>
+
+                            <textarea asp-for="Reason"
+                                      class="form-control"
+                                      rows="4"
+                                      placeholder="Enter reason for leave"
+                                      required></textarea>
+
+                            <span asp-validation-for="Reason"
+                                  class="text-danger"></span>
+
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit"
+                                    class="btn btn-primary btn-lg">
+                                Submit Leave Request
+                            </button>
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
+
+@section Scripts
+{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    @if (TempData["Error"] != null)
+    {
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                var errorModal = new bootstrap.Modal(
+                    document.getElementById("errorModal")
+                );
+                errorModal.show();
+            });
+        </script>
+    }
+}

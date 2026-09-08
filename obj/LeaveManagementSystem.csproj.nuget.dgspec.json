@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\asunilga\\OneDrive - Capgemini\\Desktop\\Mini\\Mini_1\\leavemanagementsystem\\LeaveManagementSystem.csproj": {}
+    "C:\\Users\\asunilga\\OneDrive - Capgemini\\Desktop\\Mini\\Mini_1\\LeaveManagementSystem\\LeaveManagementSystem.csproj": {}
   },
   "projects": {
-    "C:\\Users\\asunilga\\OneDrive - Capgemini\\Desktop\\Mini\\Mini_1\\leavemanagementsystem\\LeaveManagementSystem.csproj": {
+    "C:\\Users\\asunilga\\OneDrive - Capgemini\\Desktop\\Mini\\Mini_1\\LeaveManagementSystem\\LeaveManagementSystem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\asunilga\\OneDrive - Capgemini\\Desktop\\Mini\\Mini_1\\leavemanagementsystem\\LeaveManagementSystem.csproj",
+        "projectUniqueName": "C:\\Users\\asunilga\\OneDrive - Capgemini\\Desktop\\Mini\\Mini_1\\LeaveManagementSystem\\LeaveManagementSystem.csproj",
         "projectName": "LeaveManagementSystem",
-        "projectPath": "C:\\Users\\asunilga\\OneDrive - Capgemini\\Desktop\\Mini\\Mini_1\\leavemanagementsystem\\LeaveManagementSystem.csproj",
+        "projectPath": "C:\\Users\\asunilga\\OneDrive - Capgemini\\Desktop\\Mini\\Mini_1\\LeaveManagementSystem\\LeaveManagementSystem.csproj",
         "packagesPath": "C:\\Users\\asunilga\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\asunilga\\OneDrive - Capgemini\\Desktop\\Mini\\Mini_1\\leavemanagementsystem\\obj\\",
+        "outputPath": "C:\\Users\\asunilga\\OneDrive - Capgemini\\Desktop\\Mini\\Mini_1\\LeaveManagementSystem\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\asunilga\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -78,7 +78,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.110/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.111/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.AspNetCore": "(,10.0.32767]",
             "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",

@@ -1,11 +1,44 @@
-﻿<ul>
-    <li>This project allows employees to apply for leave in an easy and organized way.</li>
+﻿@{
+    ViewData["Title"] = "About";
+}
 
-    <li>Employees can submit leave requests by entering leave dates and a reason.</li>
+<div class="container mt-4">
 
-    <li>Employees can view their leave requests and check the current status.</li>
+    <h2>About Leave Management System</h2>
 
-    <li>Admin can review all leave requests and approve or reject them.</li>
+    <p class="mt-3">
+        Leave Management System is a web-based application developed using
+        ASP.NET Core MVC, Entity Framework Core, MySQL, and Bootstrap.
+        This system helps employees apply for leave online and allows
+        administrators to review and manage leave requests efficiently.
+    </p>
 
-    <li>The system reduces manual work and helps keep all leave records in one place.</li>
-</ul>
+    <hr />
+
+    <h3>Employee Module</h3>
+
+    <ul>
+        <li>Login using valid email and password.</li>
+        <li>Apply for leave by entering leave dates and reason.</li>
+        <li>View all submitted leave requests.</li>
+        <li>Track leave request status (Pending, Approved, or Rejected).</li>
+        <li>View remaining leave balance.</li>
+    </ul>
+
+    <hr />
+
+    <h3>Admin Module</h3>
+
+    <ul>
+        <li>Login and access the admin dashboard.</li>
+        <li>View all employee leave requests.</li>
+        <li>Approve or reject leave applications.</li>
+        <li>View total, pending, and approved requests.</li>
+        <li>Monitor employee leave activities.</li>
+    </ul>
+
+
+
+ 
+
+</div>

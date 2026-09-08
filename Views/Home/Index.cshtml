@@ -1,0 +1,101 @@
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="container mt-5">
+
+    <div class="bg-primary text-white text-center p-5 rounded shadow">
+
+        <h1 class="display-4 fw-bold">
+            Leave Management System
+        </h1>
+
+        <p class="lead mt-3">
+            A simple and efficient platform for managing employee leave requests.
+            Employees can apply for leave, track leave status and manage requests,
+            while administrators can approve or reject leave applications.
+        </p>
+
+        <div class="mt-4">
+
+            <a asp-controller="Account"
+               asp-action="Login"
+               class="btn btn-light btn-lg me-2">
+                Login
+            </a>
+
+            <a asp-controller="Home"
+               asp-action="About"
+               class="btn btn-outline-light btn-lg">
+                About Project
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="row mt-5">
+
+        <div class="col-md-6 mb-4">
+
+            <div class="card shadow h-100">
+
+                <div class="card-body text-center">
+
+                    <h1>👨‍💼</h1>
+
+                    <h4>Employee Module</h4>
+
+                    <p>
+                        Apply for leave, view leave requests,
+                        track leave status and check remaining leave balance.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-6 mb-4">
+
+            <div class="card shadow h-100">
+
+                <div class="card-body text-center">
+
+                    <h1>🛠️</h1>
+
+                    <h4>Admin Module</h4>
+
+                    <p>
+                        Review employee leave requests,
+approve or reject leave applications,
+view total, pending, and approved requests,
+and monitor leave activities efficiently.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    
+   
+
+    <hr />
+
+    <div class="text-center mb-4">
+
+        <a asp-controller="Home"
+           asp-action="About"
+           class="btn btn-outline-primary me-2">
+            About
+        </a>
+
+    
+    </div>
+
+</div>

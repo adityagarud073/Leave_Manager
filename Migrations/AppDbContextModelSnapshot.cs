@@ -78,6 +78,9 @@ namespace LeaveManagementSystem.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<int>("TotalLeaves")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Users");

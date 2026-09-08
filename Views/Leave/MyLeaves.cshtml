@@ -1,69 +1,200 @@
+
+
 @model IEnumerable<LeaveManagementSystem.Models.Leave>
 
 @{
     ViewData["Title"] = "My Leaves";
 }
 
-<div class="container-fluid mt-3">
-       <nav class="navbar navbar-expand-lg navbar-dark bg-dark rounded px-3 mb-4">
-        <a class="navbar-brand"
-           asp-controller="Leave"
-           asp-action="Apply">
-            LeaveManagementSystem
-        </a>
+<div class="container py-4">
 
-        <div class="navbar-nav mx-auto">
-            <a class="nav-link text-white mx-2"
+    <!-- Success Message -->
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+            @TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary rounded shadow-sm mb-4">
+        <div class="container-fluid">
+
+            <a class="navbar-brand fw-bold"
                asp-controller="Leave"
                asp-action="MyLeaves">
-                My Leaves
+                Leave Management System
             </a>
 
-            <a class="nav-link text-white mx-2 active"
-               asp-controller="Leave"
-               asp-action="Apply">
-                Apply Leave
-            </a>
-        </div>
-
-        <form asp-controller="Account"
-              asp-action="Logout"
-              method="post"
-              class="d-inline">
-            <button type="submit" class="btn btn-danger btn-sm">
-                Logout
+            <button class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarContent">
+                <span class="navbar-toggler-icon"></span>
             </button>
-        </form>
+
+            <div class="collapse navbar-collapse" id="navbarContent">
+
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active"
+                           asp-controller="Leave"
+                           asp-action="MyLeaves">
+                            My Leaves
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           asp-controller="Leave"
+                           asp-action="Apply">
+                            Apply Leave
+                        </a>
+                    </li>
+                </ul>
+
+                <form asp-controller="Account"
+                      asp-action="Logout"
+                      method="post">
+                    <button type="submit" class="btn btn-danger">
+                        Logout
+                    </button>
+                </form>
+
+            </div>
+        </div>
     </nav>
 
-    <div class="card shadow">
-        <div class="card-header bg-primary text-white">
-            <h3 class="mb-0">My Leave Requests</h3>
+    <!-- Page Title -->
+    <div class="text-center mb-4">
+        <h2 class="fw-bold text-primary">My Leave Dashboard</h2>
+        <p class="text-muted">Track your leave requests and balance</p>
+    </div>
+
+    <!-- Leave Summary Cards -->
+    <div class="row g-4 mb-4">
+
+        <div class="col-md-4">
+            <div class="card border-0 shadow h-100">
+                <div class="card-body text-center">
+                    <h5 class="text-secondary">Total Leaves</h5>
+                    <h2 class="fw-bold text-primary">
+                        @ViewBag.TotalLeaves
+                    </h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card border-0 shadow h-100">
+                <div class="card-body text-center">
+                    <h5 class="text-secondary">Used Leaves</h5>
+                    <h2 class="fw-bold text-danger">
+                        @ViewBag.UsedLeaves
+                    </h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card border-0 shadow h-100">
+                <div class="card-body text-center">
+                    <h5 class="text-secondary">Remaining Leaves</h5>
+                    <h2 class="fw-bold text-success">
+                        @ViewBag.RemainingLeaves
+                    </h2>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Leave Table -->
+    <div class="card border-0 shadow">
+
+        <div class="card-header bg-dark text-white">
+            <h4 class="mb-0">My Leave Requests</h4>
         </div>
 
         <div class="card-body">
-            <table class="table table-bordered table-hover">
-                <thead class="table-dark">
-                    <tr>
-                        <th>From Date</th>
-                        <th>To Date</th>
-                        <th>Reason</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
 
-                <tbody>
-                    @foreach (var item in Model)
-                    {
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle">
+
+                    <thead class="table-primary">
                         <tr>
-                            <td>@item.FromDate.ToShortDateString()</td>
-                            <td>@item.ToDate.ToShortDateString()</td>
-                            <td>@item.Reason</td>
-                            <td>@item.Status</td>
+                            <th>From Date</th>
+                            <th>To Date</th>
+                            <th>Reason</th>
+                            <th>Status</th>
                         </tr>
-                    }
-                </tbody>
-            </table>
+                    </thead>
+
+                    <tbody>
+
+                        @if (Model.Any())
+                        {
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+
+                                    <td>
+                                        @item.FromDate.ToString("dd-MMM-yyyy")
+                                    </td>
+
+                                    <td>
+                                        @item.ToDate.ToString("dd-MMM-yyyy")
+                                    </td>
+
+                                    <td>
+                                        @item.Reason
+                                    </td>
+
+                                    <td>
+
+                                        @if (item.Status == "Approved")
+                                        {
+                                            <span class="badge bg-success px-3 py-2">
+                                                Approved
+                                            </span>
+                                        }
+                                        else if (item.Status == "Rejected")
+                                        {
+                                            <span class="badge bg-danger px-3 py-2">
+                                                Rejected
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-warning text-dark px-3 py-2">
+                                                Pending
+                                            </span>
+                                        }
+
+                                    </td>
+
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="4" class="text-center text-muted py-4">
+                                    No Leave Requests Found
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
         </div>
+
     </div>
+
 </div>
