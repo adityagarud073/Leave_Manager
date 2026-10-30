@@ -7,61 +7,44 @@
 
 <div class="container py-4">
 
-    @* @if (TempData["Error"] != null)
-    {
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            @TempData["Error"]
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    } *@
-
     @if (TempData["Error"] != null)
-{
-    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
+    {
+        <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
 
-                <div class="modal-header bg-danger text-white">
-                    <h5 class="modal-title" id="errorModalLabel">
-                        Error
-                    </h5>
-                    <button type="button"
-                            class="btn-close btn-close-white"
-                            data-bs-dismiss="modal">
-                    </button>
+                    <div class="modal-header bg-danger text-white">
+                        <h5 class="modal-title" id="errorModalLabel">
+                            Error
+                        </h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal">
+                        </button>
+                    </div>
+
+                    <div class="modal-body text-center">
+                        @TempData["Error"]
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                            OK
+                        </button>
+                    </div>
+
                 </div>
-
-                <div class="modal-body text-center">
-                    @TempData["Error"]
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button"
-                            class="btn btn-primary"
-                            data-bs-dismiss="modal">
-                        OK
-                    </button>
-                </div>
-
             </div>
         </div>
-    </div>
-}
+    }
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary rounded shadow mb-4">
         <div class="container-fluid">
 
-            <a class="navbar-brand fw-bold"
-               asp-controller="Leave"
-               asp-action="Apply">
+            <a class="navbar-brand fw-bold" asp-controller="Leave" asp-action="Apply">
                 Leave Management System
             </a>
 
-            <button class="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarNav">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -69,25 +52,19 @@
 
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item">
-                        <a class="nav-link"
-                           asp-controller="Leave"
-                           asp-action="MyLeaves">
+                        <a class="nav-link" asp-controller="Leave" asp-action="MyLeaves">
                             My Leaves
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link active"
-                           asp-controller="Leave"
-                           asp-action="Apply">
+                        <a class="nav-link active" asp-controller="Leave" asp-action="Apply">
                             Apply Leave
                         </a>
                     </li>
                 </ul>
 
-                <form asp-controller="Account"
-                      asp-action="Logout"
-                      method="post">
+                <form asp-controller="Account" asp-action="Logout" method="post">
                     <button type="submit" class="btn btn-danger">
                         Logout
                     </button>
@@ -167,58 +144,42 @@
                         <div class="row">
 
                             <div class="col-md-6 mb-3">
-                                <label asp-for="FromDate"
-                                       class="form-label fw-semibold">
+                                <label asp-for="FromDate" class="form-label fw-semibold">
                                     From Date
                                 </label>
 
-                                <input asp-for="FromDate"
-                                       type="date"
-                                       class="form-control"
-                                       required />
+                                <input asp-for="FromDate" type="date" class="form-control" required />
 
-                                <span asp-validation-for="FromDate"
-                                      class="text-danger"></span>
+                                <span asp-validation-for="FromDate" class="text-danger"></span>
                             </div>
 
                             <div class="col-md-6 mb-3">
-                                <label asp-for="ToDate"
-                                       class="form-label fw-semibold">
+                                <label asp-for="ToDate" class="form-label fw-semibold">
                                     To Date
                                 </label>
 
-                                <input asp-for="ToDate"
-                                       type="date"
-                                       class="form-control"
-                                       required />
+                                <input asp-for="ToDate" type="date" class="form-control" required />
 
-                                <span asp-validation-for="ToDate"
-                                      class="text-danger"></span>
+                                <span asp-validation-for="ToDate" class="text-danger"></span>
                             </div>
 
                         </div>
 
                         <div class="mb-4">
 
-                            <label asp-for="Reason"
-                                   class="form-label fw-semibold">
+                            <label asp-for="Reason" class="form-label fw-semibold">
                                 Reason
                             </label>
 
-                            <textarea asp-for="Reason"
-                                      class="form-control"
-                                      rows="4"
-                                      placeholder="Enter reason for leave"
-                                      required></textarea>
+                            <textarea asp-for="Reason" class="form-control" rows="4"
+                                      placeholder="Enter reason for leave" required></textarea>
 
-                            <span asp-validation-for="Reason"
-                                  class="text-danger"></span>
+                            <span asp-validation-for="Reason" class="text-danger"></span>
 
                         </div>
 
                         <div class="d-grid">
-                            <button type="submit"
-                                    class="btn btn-primary btn-lg">
+                            <button type="submit" class="btn btn-primary btn-lg">
                                 Submit Leave Request
                             </button>
                         </div>

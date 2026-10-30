@@ -20,35 +20,35 @@ public class LeaveController : Controller
     {
         return HttpContext.Session.GetInt32("UserId") != null;
     }
- 
+
     public IActionResult Apply()
-{
-    if (!IsLoggedIn())
     {
-        return RedirectToAction("Login", "Account");
+        if (!IsLoggedIn())
+        {
+            return RedirectToAction("Login", "Account");
+        }
+
+        int userId = HttpContext.Session.GetInt32("UserId").Value;
+
+        var user = _context.Users
+            .FirstOrDefault(x => x.Id == userId);
+
+        if (user != null)
+        {
+            int usedLeaves = _context.Leaves
+                .Where(x => x.UserId == userId &&
+                            x.Status == "Approved")
+                .ToList()
+                .Sum(x => (x.ToDate - x.FromDate).Days + 1);
+
+            ViewBag.TotalLeaves = user.TotalLeaves;
+            ViewBag.UsedLeaves = usedLeaves;
+            ViewBag.RemainingLeaves =
+                user.TotalLeaves - usedLeaves;
+        }
+
+        return View();
     }
-
-    int userId = HttpContext.Session.GetInt32("UserId").Value;
-
-    var user = _context.Users
-        .FirstOrDefault(x => x.Id == userId);
-
-    if (user != null)
-    {
-        int usedLeaves = _context.Leaves
-            .Where(x => x.UserId == userId &&
-                        x.Status == "Approved")
-            .ToList()
-            .Sum(x => (x.ToDate - x.FromDate).Days + 1);
-
-        ViewBag.TotalLeaves = user.TotalLeaves;
-        ViewBag.UsedLeaves = usedLeaves;
-        ViewBag.RemainingLeaves =
-            user.TotalLeaves - usedLeaves;
-    }
-
-    return View();
-}
 
     // POST: Apply Leave
     [HttpPost]
@@ -85,6 +85,7 @@ public class LeaveController : Controller
         if (user == null)
         {
             TempData["Error"] = "User not found.";
+
             return View(leave);
         }
 
@@ -97,21 +98,18 @@ public class LeaveController : Controller
 
         int remainingLeaves = user.TotalLeaves - usedLeaves;
 
-        int requestedDays =
-            (leave.ToDate - leave.FromDate).Days + 1;
+        int requestedDays = (leave.ToDate - leave.FromDate).Days + 1;
 
         if (remainingLeaves <= 0)
         {
-            TempData["Error"] =
-                "No Leave Balance Remaining.";
+            TempData["Error"] = "No Leave Balance Remaining.";
 
             return View(leave);
         }
 
         if (requestedDays > remainingLeaves)
         {
-            TempData["Error"] =
-                $"Only {remainingLeaves} leave(s) remaining.";
+            TempData["Error"] = $"Only {remainingLeaves} leave(s) remaining.";
 
             return View(leave);
         }
@@ -122,8 +120,7 @@ public class LeaveController : Controller
         _context.Leaves.Add(leave);
         _context.SaveChanges();
 
-        TempData["Success"] =
-            "Leave Applied Successfully.";
+        TempData["Success"] = "Leave Applied Successfully.";
 
         return RedirectToAction("MyLeaves");
     }
@@ -139,8 +136,7 @@ public class LeaveController : Controller
         int userId =
             HttpContext.Session.GetInt32("UserId").Value;
 
-        var user = _context.Users
-            .FirstOrDefault(x => x.Id == userId);
+        var user = _context.Users.FirstOrDefault(x => x.Id == userId);
 
         if (user == null)
         {
@@ -153,8 +149,7 @@ public class LeaveController : Controller
             .ToList()
             .Sum(x => (x.ToDate - x.FromDate).Days + 1);
 
-        int remainingLeaves =
-            user.TotalLeaves - usedLeaves;
+        int remainingLeaves = user.TotalLeaves - usedLeaves;
 
         ViewBag.TotalLeaves = user.TotalLeaves;
         ViewBag.UsedLeaves = usedLeaves;

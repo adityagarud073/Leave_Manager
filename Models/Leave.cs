@@ -9,11 +9,11 @@ public class Leave
 
     public DateTime ToDate { get; set; }
 
-    public string Reason { get; set; }=" "; 
+    public string Reason { get; set; } = " ";
 
-    public string Status { get; set; }="";
+    public string Status { get; set; } = "";
 
     public int UserId { get; set; }
 
-    public User User { get; set; }=null!;
+    public User User { get; set; } = null!;
 }

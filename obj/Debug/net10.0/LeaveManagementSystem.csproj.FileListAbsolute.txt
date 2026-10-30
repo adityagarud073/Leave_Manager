@@ -186,3 +186,4 @@ C:\Users\asunilga\OneDrive - Capgemini\Desktop\Mini\Mini_1\LeaveManagementSystem
 C:\Users\asunilga\OneDrive - Capgemini\Desktop\Mini\Mini_1\LeaveManagementSystem\obj\Debug\net10.0\LeaveManagementSystem.genruntimeconfig.cache
 C:\Users\asunilga\OneDrive - Capgemini\Desktop\Mini\Mini_1\LeaveManagementSystem\obj\Debug\net10.0\ref\LeaveManagementSystem.dll
 C:\Users\asunilga\OneDrive - Capgemini\Desktop\Mini\Mini_1\leavemanagementsystem\obj\Debug\net10.0\LeaveManagementSystem.sourcelink.json
+C:\Users\asunilga\OneDrive - Capgemini\Desktop\Mini\Mini_1\LeaveManagementSystem\bin\Debug\net10.0\BCrypt-Net-Next.dll
