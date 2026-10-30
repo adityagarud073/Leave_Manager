@@ -1,0 +1,73 @@
+@model IEnumerable<LeaveManagementSystem.Models.Leave>
+
+@{
+    ViewData["Title"] = "My Leaves";
+}
+
+<div class="container-fluid mt-3">
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark rounded mb-4 py-2">
+        <div class="container-fluid">
+            <a class="navbar-brand"
+               asp-controller="Leave"
+               asp-action="Apply">
+                LeaveManagementSystem
+            </a>
+
+            <div class="navbar-nav mx-auto flex-row gap-3">
+                <a class="nav-link text-white"
+                   asp-controller="Leave"
+                   asp-action="MyLeaves">
+                    My Leaves
+                </a>
+
+                <a class="nav-link text-white"
+                   asp-controller="Leave"
+                   asp-action="Apply">
+                    Apply Leave
+                </a>
+            </div>
+
+            <div class="ms-auto">
+                <form asp-controller="Account"
+                      asp-action="Logout"
+                      method="post"
+                      class="d-inline">
+                    <button type="submit" class="btn btn-danger btn-sm">
+                        Logout
+                    </button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">My Leave Requests</h3>
+        </div>
+
+        <div class="card-body">
+            <table class="table table-bordered table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>From Date</th>
+                        <th>To Date</th>
+                        <th>Reason</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.FromDate.ToShortDateString()</td>
+                            <td>@item.ToDate.ToShortDateString()</td>
+                            <td>@item.Reason</td>
+                            <td>@item.Status</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

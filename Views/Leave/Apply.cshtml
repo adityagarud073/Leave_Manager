@@ -1,0 +1,104 @@
+@model LeaveManagementSystem.Models.Leave
+
+@{
+    ViewData["Title"] = "Apply Leave";
+    var userName = Context.Session.GetString("UserName");
+}
+
+<div class="container-fluid py-3">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark rounded px-3 mb-4">
+        <a class="navbar-brand"
+           asp-controller="Leave"
+           asp-action="Apply">
+            LeaveManagementSystem
+        </a>
+
+        <div class="navbar-nav mx-auto">
+            <a class="nav-link text-white mx-2"
+               asp-controller="Leave"
+               asp-action="MyLeaves">
+                My Leaves
+            </a>
+
+            <a class="nav-link text-white mx-2 active"
+               asp-controller="Leave"
+               asp-action="Apply">
+                Apply Leave
+            </a>
+        </div>
+
+        <form asp-controller="Account"
+              asp-action="Logout"
+              method="post"
+              class="d-inline">
+            <button type="submit" class="btn btn-danger btn-sm">
+                Logout
+            </button>
+        </form>
+    </nav>
+
+    <div class="row align-items-center">
+        <div class="col-md-4 mb-4">
+            <div class="text-center">
+                <h1 class="display-4 fw-light">Welcome</h1>
+                <h2 class="fw-bold text-primary">@userName</h2>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="card shadow border-0">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">Apply Leave</h3>
+                </div>
+
+                <div class="card-body p-4">
+                    <form method="post">
+                        <div class="mb-3">
+                            <label asp-for="FromDate" class="form-label fw-bold">
+                                From Date
+                            </label>
+                            <input asp-for="FromDate"
+                                   type="date"
+                                   class="form-control"
+                                   required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="ToDate" class="form-label fw-bold">
+                                To Date
+                            </label>
+                            <input asp-for="ToDate"
+                                   type="date"
+                                   class="form-control"
+                                   required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Reason" class="form-label fw-bold">
+                                Reason
+                            </label>
+                            <textarea asp-for="Reason"
+                                      class="form-control"
+                                      rows="4"
+                                      required></textarea>
+                        </div>
+
+                        @if (TempData["Error"] != null)
+                        {
+                            <div class="alert alert-danger">
+                                @TempData["Error"]
+                            </div>
+                        }
+
+                        <div class="text-center mt-4">
+                            <button type="submit"
+                                    class="btn btn-success px-5">
+                                Submit Leave
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

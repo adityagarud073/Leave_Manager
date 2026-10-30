@@ -1,0 +1,257 @@
+@* @model IEnumerable<LeaveManagementSystem.Models.Leave>
+
+@{
+    ViewData["Title"] = "Leave Requests";
+}
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">Leave Requests</h3>
+        </div>
+
+        <div class="card-body">
+            <table class="table table-bordered table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Leave Id</th>
+                        <th>Employee</th>
+                        <th>Status</th>
+                        <th>Details</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.User.Name</td>
+
+                            <td>
+                                @if (item.Status == "Approved")
+                                {
+                                    <span class="badge bg-success">Approved</span>
+                                }
+                                else if (item.Status == "Rejected")
+                                {
+                                    <span class="badge bg-danger">Rejected</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-warning text-dark">Pending</span>
+                                }
+                            </td>
+
+                            <td>
+                                <button type="button"
+                                        class="btn btn-info btn-sm"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#leaveModal_@item.Id">
+                                    View
+                                </button>
+                            </td>
+
+                            <td>
+                                @if (item.Status == "Pending")
+                                {
+                                    <a asp-controller="Admin"
+                                       asp-action="Approve"
+                                       asp-route-id="@item.Id"
+                                       class="btn btn-success btn-sm me-2">
+                                        Approve
+                                    </a>
+
+                                    <a asp-controller="Admin"
+                                       asp-action="Reject"
+                                       asp-route-id="@item.Id"
+                                       class="btn btn-danger btn-sm">
+                                        Reject
+                                    </a>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">No action</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            @foreach (var item in Model)
+            {
+                <div class="modal fade"
+                     id="leaveModal_@item.Id"
+                     tabindex="-1"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header bg-primary text-white">
+                                <h5 class="modal-title">Leave Details</h5>
+                                <button type="button"
+                                        class="btn-close btn-close-white"
+                                        data-bs-dismiss="modal">
+                                </button>
+                            </div>
+
+                            <div class="modal-body">
+                                <p><strong>Name :</strong> @item.User.Name</p>
+                                <p><strong>Email :</strong> @item.User.Email</p>
+                                <p><strong>From Date :</strong> @item.FromDate.ToShortDateString()</p>
+                                <p><strong>To Date :</strong> @item.ToDate.ToShortDateString()</p>
+                                <p><strong>Reason :</strong> @item.Reason</p>
+                                <p><strong>Status :</strong> @item.Status</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div> *@
+@model IEnumerable<LeaveManagementSystem.Models.Leave>
+
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="container-fluid mt-3">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark rounded mb-4">
+        <div class="container-fluid">
+            <a class="navbar-brand"
+               asp-controller="Admin"
+               asp-action="Index">
+                LeaveManagementSystem
+            </a>
+
+            <div class="ms-auto">
+                <form asp-controller="Account"
+                      asp-action="Logout"
+                      method="post"
+                      class="d-inline">
+                    <button type="submit" class="btn btn-danger btn-sm">
+                        Logout
+                    </button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">Leave Requests</h3>
+        </div>
+
+        <div class="card-body">
+            <table class="table table-bordered table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Leave Id</th>
+                        <th>Employee</th>
+                        <th>Status</th>
+                        <th>Details</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.User.Name</td>
+
+                            <td>
+                                @if (item.Status == "Approved")
+                                {
+                                    <span class="badge bg-success">Approved</span>
+                                }
+                                else if (item.Status == "Rejected")
+                                {
+                                    <span class="badge bg-danger">Rejected</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-warning text-dark">Pending</span>
+                                }
+                            </td>
+
+                            <td>
+                                <button type="button"
+                                        class="btn btn-info btn-sm"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#leaveModal_@item.Id">
+                                    View
+                                </button>
+                            </td>
+
+                            <td>
+                                @if (item.Status == "Pending")
+                                {
+                                    <a asp-controller="Admin"
+                                       asp-action="Approve"
+                                       asp-route-id="@item.Id"
+                                       class="btn btn-success btn-sm me-2">
+                                        Approve
+                                    </a>
+
+                                    <a asp-controller="Admin"
+                                       asp-action="Reject"
+                                       asp-route-id="@item.Id"
+                                       class="btn btn-danger btn-sm">
+                                        Reject
+                                    </a>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">No action</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            @foreach (var item in Model)
+            {
+                <div class="modal fade"
+                     id="leaveModal_@item.Id"
+                     tabindex="-1"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header bg-primary text-white">
+                                <h5 class="modal-title">Leave Details</h5>
+                                <button type="button"
+                                        class="btn-close btn-close-white"
+                                        data-bs-dismiss="modal">
+                                </button>
+                            </div>
+
+                            <div class="modal-body">
+                                <p><strong>Name :</strong> @item.User.Name</p>
+                                <p><strong>Email :</strong> @item.User.Email</p>
+                                <p><strong>From Date :</strong> @item.FromDate.ToShortDateString()</p>
+                                <p><strong>To Date :</strong> @item.ToDate.ToShortDateString()</p>
+                                <p><strong>Reason :</strong> @item.Reason</p>
+                                <p><strong>Status :</strong> @item.Status</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    window.addEventListener("pageshow", function (event) {
+        const navType = performance.getEntriesByType("navigation")[0]?.type;
+
+        if (event.persisted || navType === "back_forward") {
+            window.location.replace("@Url.Action("Login", "Account")");
+        }
+    });
+</script>
